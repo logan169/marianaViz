@@ -423,6 +423,9 @@ Vue.component('multiHistogram',{
           'verticalRatio': 0.5,
           "backgroundColor":'black',
           "showLegend": true,
+          'showAnimationControls': true,
+          'animationInterval': 1, 
+          'animationPreload': true,
           "xCenter":'50%',
         };
 
