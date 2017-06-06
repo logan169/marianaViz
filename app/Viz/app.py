@@ -16,11 +16,7 @@ def App():
     @app.route('/')
     def index():
 
-        #data
-        d = json.dumps(app.input)
-
-
-        return flask.render_template("index.html", input= d)
+        return flask.render_template("index.html")
 
     @app.route('/updateData/', methods=['POST'])
     def updateData():
@@ -49,12 +45,14 @@ def App():
         if style in ['linePlot','hist','multiHist','matrice','matriceWave','scatter']:
             #data
             data = {
-                'visible':app.input['visible'][style] ,
-                'data': app.input['data'][style],
-                'option':app.input['option'][style] 
-            }
+                'visible':app.input[style]['visible'],
+                'data': app.input[style]['data'],
+                'option':app.input[style]['option'] 
+                }
 
-            return json.dumps(data)
+            return flask.jsonify(**K.JSONResponse(data = data))
+
+
         elif style == 'all':
             return json.dumps(app.input)
 

@@ -47,7 +47,7 @@ class Vis:
 		if array_size > self.limit_size:
 		 	self.input['option'].update({
 		 		'showAnimationControls': True,
-			 	'animationInterval': 100, 
+			 	'animationInterval': 1000, 
 			    'animationPreload': True,
 			})
 
@@ -337,7 +337,7 @@ def makeRndData(size):
 	return np.random.rand(size[0],size[1])
 
 #create some data
-data1 = makeRndData((1,25))
+data1 = makeRndData((2,25))
 d1 = {'data' : data1}
 data2 = makeRndData((101,101))
 d2 = {'data' : data2}
@@ -359,8 +359,8 @@ matrice = vis2.matrice()
 matriceWave = vis2.matriceWave()
 
 #Create an instance and input data array
-data3 = makeRndData((1001,3))
-label = np.arange(1001)
+data3 = makeRndData((11,3))
+label = np.arange(11)
 d3 = {
 	'data' : data3,
 	'label':label
@@ -369,3 +369,4 @@ d3 = {
 vis3 = Vis(d3)
 scatterPlot3D = vis3.scatterPlot3D()
 
+       
