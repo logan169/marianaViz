@@ -1,4 +1,8 @@
 
+//////////////////////////////////////////////////////
+/// Vis.js component
+//////////////////////////////////////////////////////
+
 //Histogram
 Vue.component('histogram',{
   template : '<div v-if="visible == true"><h2>{{title}}:</h2><div ref="histogram"></div></div>',
@@ -549,8 +553,462 @@ Vue.component('linePlot',{
       console.log('Histogram plot data updated');
     }
     }
-});
+}),
 
+//////////////////////////////////////////////////////
+/// Vega.js component
+//////////////////////////////////////////////////////
+
+
+//line chart
+Vue.component('lineChart',{
+  template : `
+  <div>
+    <h2>{{title}}:</h2>
+    <div ref="lineChart"></div>
+  </div>`,
+  data:function(){
+      return {
+        url:'/getData/lineChart',
+        id:'vis',
+        visible:true,
+        title:'Line chart',
+        data:{},
+        options:{}
+      }
+  },
+  mounted:function(){
+  this.getData()
+  },
+  methods:{
+
+    parseJson:function(){
+      var self = this;
+      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['lineChart'],renderer:"svg"}).update(); });
+    },
+
+    getData: function(){
+        var viewUrl = this.url;
+        var self = this;
+
+        $.ajax({
+           url: viewUrl,
+           method: 'GET',
+           success: function (resp) {
+                if (resp.error == false){
+                    //update input
+                    self.updateInput(resp);
+                }
+           },
+           error: function (error) {
+               console.log(error)
+           }
+        });
+    },
+
+    updateInput: function(i){
+      var t = i.data
+      this.visible = t.visible;
+      this.data = JSON.parse(t['json']);
+      this.parseJson();
+
+    }
+  }
+}),
+
+//stackedBarChart
+Vue.component('stackedBarChart',{
+  template : `
+  <div>
+    <h2>{{title}}:</h2>
+    <div ref="stackedBarChart"></div>
+  </div>`,
+  data:function(){
+      return {
+        url:'/getData/stackedBarChart',
+        id:'vis',
+        visible:true,
+        title:'Stacked bar chart',
+        data:{},
+        options:{}
+      }
+  },
+  mounted:function(){
+  this.getData()
+  },
+  methods:{
+
+    parseJson:function(){
+      var self = this;
+      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['stackedBarChart'],renderer:"svg"}).update(); });
+    },
+
+    getData: function(){
+        var viewUrl = this.url;
+        var self = this;
+
+        $.ajax({
+           url: viewUrl,
+           method: 'GET',
+           success: function (resp) {
+                if (resp.error == false){
+                    //update input
+                    self.updateInput(resp);
+                }
+           },
+           error: function (error) {
+               console.log(error)
+           }
+        });
+    },
+
+    updateInput: function(i){
+      var t = i.data
+      this.visible = t.visible;
+      this.data = JSON.parse(t['json']);
+      this.parseJson();
+
+    }
+  }
+}),
+
+//groupedBarChart
+Vue.component('groupedBarChart',{
+  template : `
+  <div>
+    <h2>{{title}}:</h2>
+    <div ref="groupedBarChart"></div>
+  </div>`,
+  data:function(){
+      return {
+        url:'/getData/groupedBarChart',
+        id:'vis',
+        visible:true,
+        title:'Grouped bar chart',
+        data:{},
+        options:{}
+      }
+  },
+  mounted:function(){
+  this.getData()
+  },
+  methods:{
+
+    parseJson:function(){
+      var self = this;
+      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['groupedBarChart'],renderer:"svg"}).update(); });
+    },
+
+    getData: function(){
+        var viewUrl = this.url;
+        var self = this;
+
+        $.ajax({
+           url: viewUrl,
+           method: 'GET',
+           success: function (resp) {
+                if (resp.error == false){
+                    //update input
+                    self.updateInput(resp);
+                }
+           },
+           error: function (error) {
+               console.log(error)
+           }
+        });
+    },
+
+    updateInput: function(i){
+      var t = i.data
+      this.visible = t.visible;
+      this.data = JSON.parse(t['json']);
+      this.parseJson();
+
+    }
+  }
+}),
+
+
+//areaChart
+Vue.component('areaChart',{
+  template : `
+  <div>
+    <h2>{{title}}:</h2>
+    <div ref="areaChart"></div>
+  </div>`,
+  data:function(){
+      return {
+        url:'/getData/areaChart',
+        id:'vis',
+        visible:true,
+        title:'Area chart',
+        data:{},
+        options:{}
+      }
+  },
+  mounted:function(){
+  this.getData()
+  },
+  methods:{
+
+    parseJson:function(){
+      var self = this;
+      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['areaChart'],renderer:"svg",hover:true}).update(); });
+    },
+
+    getData: function(){
+        var viewUrl = this.url;
+        var self = this;
+
+        $.ajax({
+           url: viewUrl,
+           method: 'GET',
+           success: function (resp) {
+                if (resp.error == false){
+                    //update input
+                    self.updateInput(resp);
+                }
+           },
+           error: function (error) {
+               console.log(error)
+           }
+        });
+    },
+
+    updateInput: function(i){
+      var t = i.data
+      this.visible = t.visible;
+      this.data = JSON.parse(t['json']);
+      this.parseJson();
+
+    }
+  }
+}),
+
+
+//stackedAreaChart
+Vue.component('stackedAreaChart',{
+  template : `
+  <div>
+    <h2>{{title}}:</h2>
+    <div ref="stackedAreaChart"></div>
+  </div>`,
+  data:function(){
+      return {
+        url:'/getData/stackedAreaChart',
+        id:'vis',
+        visible:true,
+        title:'Stacked area chart',
+        data:{},
+        options:{}
+      }
+  },
+  mounted:function(){
+  this.getData()
+  },
+  methods:{
+
+    parseJson:function(){
+      var self = this;
+      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['stackedAreaChart'],renderer:"svg"}).update(); });
+    },
+
+    getData: function(){
+        var viewUrl = this.url;
+        var self = this;
+
+        $.ajax({
+           url: viewUrl,
+           method: 'GET',
+           success: function (resp) {
+                if (resp.error == false){
+                    //update input
+                    self.updateInput(resp);
+                }
+           },
+           error: function (error) {
+               console.log(error)
+           }
+        });
+    },
+
+    updateInput: function(i){
+      var t = i.data
+      this.visible = t.visible;
+      this.data = JSON.parse(t['json']);
+      this.parseJson();
+
+    }
+  }
+}),
+
+//scatterChart
+Vue.component('scatterChart',{
+  template : `
+  <div>
+    <h2>{{title}}:</h2>
+    <div ref="scatterChart"></div>
+  </div>`,
+  data:function(){
+      return {
+        url:'/getData/scatterChart',
+        id:'vis',
+        visible:true,
+        title:'Scatter chart',
+        data:{},
+        options:{}
+      }
+  },
+  mounted:function(){
+  this.getData()
+  },
+  methods:{
+
+    parseJson:function(){
+      var self = this;
+      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['scatterChart'],renderer:"svg"}).update(); });
+    },
+
+    getData: function(){
+        var viewUrl = this.url;
+        var self = this;
+
+        $.ajax({
+           url: viewUrl,
+           method: 'GET',
+           success: function (resp) {
+                if (resp.error == false){
+                    //update input
+                    self.updateInput(resp);
+                }
+           },
+           error: function (error) {
+               console.log(error)
+           }
+        });
+    },
+
+    updateInput: function(i){
+      var t = i.data
+      this.visible = t.visible;
+      this.data = JSON.parse(t['json']);
+      this.parseJson();
+
+    }
+  }
+}),
+
+//pieChart
+Vue.component('pieChart',{
+  template : `
+  <div>
+    <h2>{{title}}:</h2>
+    <div ref="pieChart"></div>
+  </div>`,
+  data:function(){
+      return {
+        url:'/getData/pieChart',
+        id:'vis',
+        visible:true,
+        title:'Pie chart',
+        data:{},
+        options:{}
+      }
+  },
+  mounted:function(){
+  this.getData()
+  },
+  methods:{
+
+    parseJson:function(){
+      var self = this;
+      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['pieChart'],renderer:"svg"}).update(); });
+    },
+
+    getData: function(){
+        var viewUrl = this.url;
+        var self = this;
+
+        $.ajax({
+           url: viewUrl,
+           method: 'GET',
+           success: function (resp) {
+                if (resp.error == false){
+                    //update input
+                    self.updateInput(resp);
+                }
+           },
+           error: function (error) {
+               console.log(error)
+           }
+        });
+    },
+
+    updateInput: function(i){
+      var t = i.data
+      this.visible = t.visible;
+      this.data = JSON.parse(t['json']);
+      this.parseJson();
+
+    }
+  }
+}),
+
+//bar chart
+Vue.component('barChart',{
+  template : `
+  <div>
+    <h2>{{title}}:</h2>
+    <div ref="barChart"></div>
+  </div>`,
+  data:function(){
+      return {
+        url:'/getData/barChart',
+        id:'vis',
+        visible:true,
+        title:'Bar chart',
+        data:{},
+        options:{}
+      }
+  },
+  mounted:function(){
+  this.getData()
+  },
+  methods:{
+
+    parseJson:function(){
+      var self = this;
+      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['barChart'],renderer:"svg"}).update(); });
+    },
+
+    getData: function(){
+        var viewUrl = this.url;
+        var self = this;
+
+        $.ajax({
+           url: viewUrl,
+           method: 'GET',
+           success: function (resp) {
+                if (resp.error == false){
+                    //update input
+                    self.updateInput(resp);
+                }
+           },
+           error: function (error) {
+               console.log(error)
+           }
+        });
+    },
+
+    updateInput: function(i){
+      var t = i.data
+      this.visible = t.visible;
+      this.data = JSON.parse(t['json']);
+      this.parseJson();
+
+    }
+  }
+});
 
 
 var app = new Vue({

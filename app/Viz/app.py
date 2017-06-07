@@ -24,7 +24,7 @@ def App():
                 d = request.json
 
                 style = d['style']
-                #check style
+                #check if style is a vis.js display
                 if style in ['linePlot','hist','multiHist','matrice','matriceWave','scatter']:
 
                     if 'visible' in d.keys():
@@ -33,6 +33,15 @@ def App():
                         app.input[style]['data'] = d['data']
                     if 'option' in d.keys():
                         app.input[style]['option'].update(d['option'])
+
+                    return flask.jsonify(**K.JSONResponse(data='', error=False, message='Data updated'))
+
+                #check if style is a vega display
+                elif style in ['barChart','lineChart','stackedBarChart','groupedBarChart','areaChart','stackedAreaChart','scatterChart','pieChart']:
+                    if 'visible' in d.keys():
+                        app.input[style]['visible'] = d['visible']
+                    if 'json' in d.keys():
+                        app.input[style]['json'] = d['json']
 
                     return flask.jsonify(**K.JSONResponse(data='', error=False, message='Data updated'))
 
@@ -56,6 +65,17 @@ def App():
         elif style == 'all':
             return json.dumps(app.input)
 
+
+         #check if style is a vega display
+        elif style in ['barChart','lineChart','stackedBarChart','groupedBarChart','areaChart','stackedAreaChart','scatterChart','pieChart']:
+            print 'vega'
+            data={
+                "visible":app.input[style]['visible'],
+                "json":app.input[style]['json'],
+            }
+
+        #return flask.jsonify(**K.JSONResponse(data = json.dumps(data)))
+        return flask.jsonify(**K.JSONResponse(data = data))
 
     return app
     
