@@ -565,7 +565,7 @@ Vue.component('lineChart',{
   template : `
   <div>
     <h2>{{title}}:</h2>
-    <div ref="lineChart"></div>
+    <div ref="lineChart">
   </div>`,
   data:function(){
       return {
@@ -581,7 +581,6 @@ Vue.component('lineChart',{
   this.getData()
   },
   methods:{
-
     parseJson:function(){
       var self = this;
       vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['lineChart'],renderer:"svg"}).update(); });
@@ -677,7 +676,9 @@ Vue.component('groupedBarChart',{
   template : `
   <div>
     <h2>{{title}}:</h2>
-    <div ref="groupedBarChart"></div>
+    <div ref="groupedBarChart">
+
+    </div>
   </div>`,
   data:function(){
       return {
@@ -753,7 +754,10 @@ Vue.component('areaChart',{
 
     parseJson:function(){
       var self = this;
-      vg.parse.spec(self.data, function(chart) { chart({el:self.$refs['areaChart'],renderer:"svg",hover:true}).update(); });
+      vg.parse.spec(self.data, function(chart) { 
+        view = chart({el:self.$refs['areaChart'],renderer:"svg"}).update(); 
+
+      });
     },
 
     getData: function(){

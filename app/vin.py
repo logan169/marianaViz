@@ -209,8 +209,8 @@ class Vega:
 
 options={
 	'size':{
-		'height':268,
-		'width':268
+		'height':400,
+		'width':400
 		},
 	'axis_titles':{
 		'x':'Index',
